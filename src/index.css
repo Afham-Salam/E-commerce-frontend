@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: sans-serif;
+ 
+}
+
+.banner-img {
+  background-image: url('/banner-img.webp');
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100vh;
+ 
+  margin-top: -96px;
+  /* position: relative;
+  z-index: -100; */
+}
+
+
+
+  

@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { FaRegHeart, FaUserPlus } from 'react-icons/fa';
-import { IoCartOutline, IoSearchSharp } from 'react-icons/io5';
+import { IoCartOutline, IoLogOutSharp, IoSearchSharp } from 'react-icons/io5';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { navItem } from '../lib/data';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -11,7 +12,13 @@ const Navbar = () => {
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
   };
+  const navigate=useNavigate()
+  const handleLogout=()=>{
+    localStorage.removeItem("token")
+    navigate("/login")
+  }
 
+ 
   return (
     <div className="shadow-md py-7 px-10 bg-white relative z-10">
       {/* Navbar Content */}
@@ -37,7 +44,7 @@ const Navbar = () => {
           <FaUserPlus />
           <IoSearchSharp />
           <FaRegHeart />
-          <IoCartOutline />
+          <IoLogOutSharp onClick={handleLogout} />
         </div>
 
         {/* Hamburger Icon (Mobile Only) */}
@@ -72,9 +79,9 @@ const Navbar = () => {
         {/* Icons (Mobile) */}
         <div className="flex gap-8 p-6 text-[20px]">
           <FaUserPlus />
-          <IoSearchSharp />
           <FaRegHeart />
           <IoCartOutline />
+          <IoLogOutSharp onClick={handleLogout} />
         </div>
       </div>
     </div>

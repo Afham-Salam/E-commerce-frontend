@@ -4,6 +4,7 @@ import { IoCartOutline, IoLogOutSharp, IoSearchSharp } from 'react-icons/io5';
 import { AiOutlineMenu, AiOutlineClose } from 'react-icons/ai';
 import { navItem } from '../lib/data';
 import { NavLink, useNavigate } from 'react-router-dom';
+import CartMenu from './CartMenu';
 
 
 const Navbar = () => {
@@ -17,6 +18,7 @@ const Navbar = () => {
     localStorage.removeItem("token")
     navigate("/login")
   }
+  const [cartOpen,setOpenCart]=useState(false)
 
  
   return (
@@ -25,7 +27,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <div>
-          <img src="public/logo.webp" className="h-10 w-auto" alt="Logo" />
+          <img src="/logo.webp" className="h-10 w-auto" alt="Logo" />
         </div>
 
         {/* Desktop Menu */}
@@ -41,11 +43,13 @@ const Navbar = () => {
 
         {/* Icons */}
         <div className="hidden lg:flex gap-8 text-[20px]">
-          <FaUserPlus />
-          <IoSearchSharp />
-          <FaRegHeart />
-          <IoLogOutSharp onClick={handleLogout} />
+          <FaUserPlus className='cursor-pointer' />
+          <IoCartOutline className='cursor-pointer' onClick={()=>setOpenCart(!cartOpen)} />
+          <FaRegHeart  className='cursor-pointer'/>
+          <IoLogOutSharp className='cursor-pointer' onClick={handleLogout} />
         </div>
+
+        {cartOpen && <CartMenu/>}
 
         {/* Hamburger Icon (Mobile Only) */}
         <div className="md:block lg:hidden text-[24px]" onClick={toggleMenu}>
@@ -77,11 +81,11 @@ const Navbar = () => {
         </ul>
 
         {/* Icons (Mobile) */}
-        <div className="flex gap-8 p-6 text-[20px]">
-          <FaUserPlus />
-          <FaRegHeart />
-          <IoCartOutline />
-          <IoLogOutSharp onClick={handleLogout} />
+        <div className="flex gap-8 p-6 text-[20px] ">
+          <FaUserPlus className='cursor-pointer' onClick={toggleMenu} />
+          <IoCartOutline className='cursor-pointer' onClick={()=>setOpenCart(!cartOpen) } />
+          <FaRegHeart className='cursor-pointer' onClick={toggleMenu} />
+          <IoLogOutSharp className='cursor-pointer' onClick={handleLogout} />
         </div>
       </div>
     </div>

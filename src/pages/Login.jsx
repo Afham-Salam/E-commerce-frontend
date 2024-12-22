@@ -42,8 +42,9 @@ export default function Login() {
       const payload = JSON.parse(
         atob(response.data.token.split(".")[1])
       );
-      console.log("role",payload.role);
-   
+      console.log("role",payload.userId);
+    
+      localStorage.setItem("userId",payload.userId);
       if (payload.role=="user") {
         navigate("/home");
       } else {

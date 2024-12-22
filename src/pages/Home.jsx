@@ -5,6 +5,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const RangeItem = [
@@ -24,7 +25,7 @@ const Home = () => {
             data: "Bedroom",
         },
     ];
-
+const navigate=useNavigate()
     return (
         <>
 
@@ -37,10 +38,10 @@ const Home = () => {
                         New Collection
                     </h1>
                     <p className="text-[16px] mt-4">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-                        tellus, luctus nec ullamcorper mattis.
+                    Discover elegant and stylish furniture to transform your home. 
+                    Browse our curated collection of premium quality  designed to bring comfort .
                     </p>
-                    <button className="px-10 py-3 border-2 mt-4 border-[#B88E2F] bg-[#B88E2F] text-white text-sm hover:bg-white hover:text-[#B88E2F]">
+                    <button onClick={()=>navigate('/shop')} className="px-10 py-3 border-2 mt-4 border-[#B88E2F] bg-[#B88E2F] text-white text-sm hover:bg-white hover:text-[#B88E2F]">
                         BUY NOW
                     </button>
                 </div>

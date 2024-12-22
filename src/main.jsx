@@ -7,6 +7,10 @@ import Home from './pages/Home.jsx';
 import Product from './pages/Product.jsx';
 import Signup from './pages/Signup.jsx';
 import Login from './pages/Login.jsx';
+import Shop from './pages/Shop.jsx';
+import Cart from './pages/Cart.jsx';
+
+
 
 const router = createBrowserRouter([
   {
@@ -18,12 +22,20 @@ const router = createBrowserRouter([
         element: <Home />,
       },
       {
-        path: '/product',
+        path: '/viewproduct/:productid',
         element: <Product />,
       },
       {
         path: '/',
         element: <Navigate to="/signup" />,
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
+      },
+      {
+        path: '/shop',
+        element: <Shop/>,
       },
       
     ],
@@ -40,6 +52,8 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
+   
     <RouterProvider router={router} />
+    
   </StrictMode>
 );

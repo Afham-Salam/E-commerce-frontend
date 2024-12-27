@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Relatedproduct from "../components/Relatedproduct";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import APIClientPrivate from "../utils/axios";
 import BenefitSection from "../components/BenefitSection";
+import {
+  BorderTopOutlined
+} from '@ant-design/icons';
+import { Button, notification } from 'antd';
 
 export default function Product() {
-  const [data, setData] = useState(null); // Use `null` initially
+  const [data, setData] = useState(null);
+  const [isAddedToCart, setIsAddedToCart] = useState(false);
   const { productid } = useParams();
+  const navigate = useNavigate();
+  const [api, contextHolder] = notification.useNotification();
 
-  // Fetch product data
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await APIClientPrivate.get(
           `/api/product/get/${productid}`
         );
-        setData(response.data); // Assuming the response data is a single product object
+        setData(response.data);
         console.log("Product", response.data);
       } catch (err) {
         console.error("Error fetching data:", err);
@@ -25,7 +31,15 @@ export default function Product() {
     fetchData();
   }, [productid]);
 
-  // Post to Cart function
+  const openNotification = () => {
+    api.info({
+      message: `Notification`,
+      description:
+        'Product added to cart successfully!',
+      placement: 'top',
+    });
+  };
+
   const postCart = async () => {
     const userId = localStorage.getItem("userId");
     const datas = {
@@ -36,26 +50,29 @@ export default function Product() {
     try {
       const response = await APIClientPrivate.post(`/api/cart/add`, datas);
       console.log("Added to Cart:", response.data);
-      alert("Product added to cart successfully!");
-      
+      setIsAddedToCart(true);
+      openNotification();
     } catch (err) {
       console.error("Error adding to cart:", err);
       alert("Failed to add product to cart!");
     }
   };
 
-  // Handle loading or no data
   if (!data) {
     return <div className="text-center py-10">Loading...</div>;
   }
 
+  const goToCart = () => {
+    navigate("/cart");
+  };
+
   return (
     <>
+      {contextHolder}
       <div className="bg-[#fff3e3] border-gray-500 opacity-60 text-sm border-0 p-5 items-center">
         <span>Home &emsp; &gt; &emsp; Shop &emsp; &gt; &emsp; {data.name}</span>
       </div>
 
-      {/* Product section */}
       <div className="flex justify-center pt-10">
         <div className="flex flex-col md:flex-row gap-16 w-[80%]">
           <img
@@ -80,18 +97,23 @@ export default function Product() {
               nemo odit dignissimos, hic totam neque? Ipsam tempore tempora rem
               placeat porro voluptatum ducimus veniam.
             </div>
-            <button
-              onClick={postCart}
-              className="w-32 text-sm py-2 border-2 border-black text-black rounded-lg bg-transparent hover:bg-black hover:text-white transition duration-300"
-            >
-              Add to Cart
-            </button>
+            <div className="flex gap-2">
+              
+              <Button
+                onClick={isAddedToCart ? goToCart : postCart}
+               
+                className="w-32 text-sm  border-2 border-black text-black rounded-lg bg-transparent hover:bg-black hover:text-white transition duration-300">
+               
+              
+                 {isAddedToCart ? "Go to Cart" : "Add to Cart"}
+              </Button>
+            </div>
           </div>
         </div>
       </div>
 
       <Relatedproduct />
-      <BenefitSection/>
+      <BenefitSection />
     </>
   );
 }

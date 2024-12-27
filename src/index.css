@@ -22,5 +22,10 @@ body {
 }
 
 
-
+.bgimage{
+  background-image: url('/login.webp');
+  background-repeat: repeat;
+ 
+ 
+}
   

@@ -1,43 +1,43 @@
-import React, { useEffect, useState } from "react";
-import APIClientPrivate from "../utils/axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchCartItems,
+  incrementCartItem,
+  decrementCartItem,
+  removeFromCart,
+} from "../redux/cartSlice";
 import { RiDeleteBinLine } from "react-icons/ri";
 import BenefitSection from "../components/BenefitSection";
 
 export default function Cart() {
-  const [cartData, setCartData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { items, status, error } = useSelector((state) => state.cart);
+  const userId = localStorage.getItem("userId");
 
-  const fetchCart = async () => {
-    const userId = localStorage.getItem("userId");
-    try {
-      const response = await APIClientPrivate.get(`/api/cart/get/${userId}`);
-      const products = response.data.cart.products || [];
-      setCartData(products);
-      console.log("Cart Data:", products);
-    } catch (error) {
-      console.error("Error fetching cart data:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Fetch cart items on component mount
   useEffect(() => {
-    fetchCart();
-  }, []);
+    if (userId) {
+      dispatch(fetchCartItems(userId));
+    }
+  }, [dispatch, userId]);
 
   const calculateSubtotal = () => {
-    if (!cartData.length) return 0;
-    return cartData.reduce(
+    if (!items.length) return 0;
+    return items.reduce(
       (total, item) => total + item.productId.price * item.quantity,
       0
     );
   };
 
-  if (loading) {
+  if (status === "loading") {
     return <div className="text-center py-10">Loading...</div>;
   }
 
-  if (!cartData.length) {
+  if (error) {
+    return <div className="text-center py-10 text-red-500">{error}</div>;
+  }
+
+  if (!items.length) {
     return <div className="text-center py-10">Your cart is empty!</div>;
   }
 
@@ -52,7 +52,7 @@ export default function Cart() {
           alt="Cart Banner"
         />
 
-        <div className=" mt-6 flex flex-col md:flex-row gap-10 justify-center p-4 space-y-4 md:space-y-0 md:space-x-">
+        <div className="mt-6 flex flex-col md:flex-row gap-10 justify-center p-4 space-y-4 md:space-y-0 md:space-x-">
           <div className="w-full md:w-2/3 bg-white shadow-md rounded-lg overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[600px]">
@@ -66,9 +66,9 @@ export default function Cart() {
                   </tr>
                 </thead>
                 <tbody>
-                  {cartData.map((item) => (
-                    <tr key={item._id} className="hover:bg-gray-50 ">
-                      <td className="flex items-center p-4 border-b">
+                  {items.map((item) => (
+                    <tr key={item._id} className="hover:bg-gray-50   ">
+                      <td className="flex items-center p-4 border-0">
                         <img
                           src={item.productId.images}
                           alt={item.productId.name}
@@ -76,15 +76,32 @@ export default function Cart() {
                         />
                         <span>{item.productId.name}</span>
                       </td>
-                      <td className="p-4 border-b">Rs. {item.productId.price}</td>
-                      <td className="p-4 border-b flex gap-2">
-                       <button className="bg-green-500 px-2 text-white font-semibold ">+</button> <div className="w-12 text-center border rounded-md">{item.quantity}</div><button  className="bg-red-500 px-3 text-white font-semibold  ">-</button>
+                      <td className="p-4 ">Rs. {item.productId.price}</td>
+                      <td className="  flex  gap-2">
+                        <button
+                          onClick={() => dispatch(incrementCartItem(item._id))}
+                          className="bg-green-500 px-2 text-white font-semibold"
+                        >
+                          +
+                        </button>
+                        <div className="w-10 text-center border rounded-md">
+                          {item.quantity}
+                        </div>
+                        <button
+                          onClick={() => dispatch(decrementCartItem(item._id))}
+                          className="bg-red-500 px-3 text-white font-semibold"
+                        >
+                          -
+                        </button>
                       </td>
-                      <td className="p-4 border-b">
+                      <td className="p-4 ">
                         Rs. {(item.productId.price * item.quantity).toFixed(2)}
                       </td>
                       <td>
-                        <RiDeleteBinLine className="text-2xl text-red-600" />
+                        <RiDeleteBinLine
+                          onClick={() => dispatch(removeFromCart(item._id))}
+                          className="text-2xl text-red-600 cursor-pointer"
+                        />
                       </td>
                     </tr>
                   ))}
@@ -109,7 +126,7 @@ export default function Cart() {
           </div>
         </div>
       </div>
-      <BenefitSection/>
+      <BenefitSection />
     </>
   );
 }

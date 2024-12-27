@@ -63,8 +63,8 @@ const CartMenu = () => {
           ) : cartData.length > 0 ? (
             <div className="space-y-4">
               {cartData.map((item) => (
-                <div key={item.productId._id} className="flex justify-between items-center">
-                  <div className="flex items-center space-x-4">
+                <div key={item.productId._id} className="flex justify-between gap-20 items-center">
+                  <div className="flex  items-center space-x-4">
                     <img
                       src={item.productId.images}
                       alt={item.productId.name}
@@ -99,19 +99,22 @@ const CartMenu = () => {
             </div>
           </div>
 
-          <div className="mt-6 flex justify-between space-x-4">
+          <div className="mt-6  flex flex-col justify-between gap-2">
             <Link
               to={"/cart"}
-              className="flex-1 text-center bg-gray-200 text-gray-800 py-2 rounded-lg font-medium hover:bg-gray-300 cursor-pointer"
+              onClick={()=>setIsOpen(false)}
+              className="flex-1 text-center text-white bg-yellow-600 hover:bg-yellow-700   py-2 rounded-lg font-medium cursor-pointer"
             >
               View Cart
             </Link>
-            <button className="flex-1 bg-yellow-600 text-white py-2 rounded-lg font-medium hover:bg-yellow-700 cursor-pointer">
+           <div className="flex gap-2 ">
+           <button className=" bg-gray-200 w-full text-gray-800 py-2 px-4 rounded-lg font-medium hover:bg-gray-300  cursor-pointer">
               Checkout
             </button>
-            <button className="flex-1 bg-gray-200 text-gray-800 py-2 rounded-lg font-medium hover:bg-gray-300 cursor-pointer">
+            <button className=" bg-gray-200 w-full text-gray-800 text-sm px-4 py-2 rounded-lg font-medium hover:bg-gray-300 cursor-pointer">
               Compare
             </button>
+           </div>
           </div>
         </div>
       </div>

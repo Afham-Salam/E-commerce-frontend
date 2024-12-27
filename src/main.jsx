@@ -9,6 +9,8 @@ import Signup from './pages/Signup.jsx';
 import Login from './pages/Login.jsx';
 import Shop from './pages/Shop.jsx';
 import Cart from './pages/Cart.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
+import AdminDashboard from './pages/AdminDashboard.jsx';
 
 
 
@@ -19,11 +21,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/home',
-        element: <Home />,
+        element:(
+              <ProtectedRoute>
+           <Home />
+           </ProtectedRoute>
+           ),
       },
       {
         path: '/viewproduct/:productid',
-        element: <Product />,
+        element: (<ProtectedRoute><Product /></ProtectedRoute>),
       },
       {
         path: '/',
@@ -31,11 +37,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/cart',
-        element: <Cart />,
+        element:(<ProtectedRoute>
+             <Cart />
+        </ProtectedRoute>) ,
       },
       {
         path: '/shop',
-        element: <Shop/>,
+        element:(<ProtectedRoute><Shop/></ProtectedRoute>) ,
       },
       
     ],
@@ -47,6 +55,10 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login/>,
+  },
+  {
+    path: '/admin',
+    element: <AdminDashboard/>,
   },
 ]);
 

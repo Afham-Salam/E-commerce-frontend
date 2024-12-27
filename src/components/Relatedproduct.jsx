@@ -1,6 +1,8 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Relatedproduct() {
+    const navigate=useNavigate()
   return (
     <div className="mt-20">
                 <h2 className="text-[30px] font-bold text-black text-center">Related Products</h2>
@@ -24,7 +26,7 @@ export default function Relatedproduct() {
                     </div>
                 </div>
                 <div className="flex justify-center mt-12">
-                    <button className="px-14  text-sm py-2 border-2 border-[#B88E2F] hover:bg-[#B88E2F] hover:text-white text-black bg-transparent transition duration-300 ">
+                    <button onClick={()=>navigate('/shop')} className="px-14  text-sm py-2 border-2 border-[#B88E2F] hover:bg-[#B88E2F] hover:text-white text-black bg-transparent transition duration-300 ">
                         Show More
                     </button>
                 </div>

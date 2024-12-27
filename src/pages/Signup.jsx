@@ -45,7 +45,7 @@ export default function Signup() {
 
   return (
     <>
-      <div className=" flex h-screen flex-col bg-white bg pt-1">
+      <div className=" flex h-screen flex-col bgimage bg pt-1">
         <div className="w-full    text-white flex justify-between px-6 py-1">
           <img src="/logo.webp" className="h-8 w-auto"  alt="" />
           <Link
@@ -56,8 +56,8 @@ export default function Signup() {
           </Link>
         </div>
 
-        <div className="w-full  h-screen  flex justify-center  lg:flex-row flex-col lg:gap-36 items-center ">
-          {/* Left Section */}
+       <div className="w-full h-screen flex lg:flex-row flex-col justify-center items-center ">
+        
          
           <Formik
             initialValues={{
@@ -71,11 +71,11 @@ export default function Signup() {
           >
            
             {({ setFieldValue }) => (
-              <Form  className="md:p-10 p-7   rounded-lg  shadow-lg">
+              <Form className="md:p-10 p-7 rounded-lg bg-white bg-opacity-30 backdrop-blur-md shadow-2xl border-2 border-transparent hover:border-[#B88E2F] hover:shadow-[0_0_20px_rgba(184,142,47,0.5)] transition-all duration-300 ease-in-out">
                  <h1 className="text-3xl font-extrabold tracking-wide text-center">Register Now !</h1>
                 {/* Email Input */}
                 <div className="lg:mb-3 mb-2">
-                  <label className="block text-sm text-white text-opacity-80 mb-2">
+                  <label className="block text-sm text-black mb-2">
                     Name
                   </label>
                   <Field
@@ -91,7 +91,7 @@ export default function Signup() {
                   />
                 </div>
                 <div className="lg:mb-3 mb-2">
-                  <label className="block text-sm text-white text-opacity-80 mb-2">
+                  <label className="block text-sm text-black mb-2">
                     Email
                   </label>
                   <Field
@@ -109,7 +109,7 @@ export default function Signup() {
 
                 {/* Password Input */}
                 <div className="lg:mb-5 mb-3 relative">
-                  <label className="block text-sm text-white text-opacity-80 mb-2">
+                  <label className="block text-sm text-black  mb-2">
                     Password
                   </label>
                   <Field
@@ -140,7 +140,7 @@ export default function Signup() {
                   Signup
                 </button>
 
-                <div className="flex items-center my-2">
+                <div className="flex items-center my-2 text-black">
                   <hr className="flex-1 border-black opacity-40" />
                   <span className="mx-4 text-black">or</span>
                   <hr className="flex-1 border-black opacity-40" />

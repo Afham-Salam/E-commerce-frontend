@@ -39,67 +39,16 @@ export default function Shop() {
         />
         {/* Filter Section */}
         <div className="flex flex-wrap items-center justify-between p-4 bg-beige-50 border border-gray-200">
-          <button className="px-4 py-2 text-sm font-medium border rounded bg-gray-100 hover:bg-gray-200">
-            Filter
-          </button>
+          
 
-          {/* View Toggle Section */}
-          <div className="flex gap-2">
-            <button
-              className={`p-2 text-lg border rounded ${
-                view === "grid" ? "bg-gray-300" : "bg-gray-100 hover:bg-gray-200"
-              }`}
-              onClick={() => setView("grid")}
-            >
-              🔳
-            </button>
-            <button
-              className={`p-2 text-lg border rounded ${
-                view === "list" ? "bg-gray-300" : "bg-gray-100 hover:bg-gray-200"
-              }`}
-              onClick={() => setView("list")}
-            >
-              📋
-            </button>
-          </div>
+          
 
-          {/* Results Info */}
-          <div className="text-sm text-gray-600">
-            Showing 1–{Math.min(showCount, data.length)} of {data.length} results
-          </div>
+         
 
-          {/* Show Count Section */}
-          <div className="flex items-center gap-2">
-            <label htmlFor="show" className="text-sm text-gray-600">
-              Show
-            </label>
-            <input
-              type="number"
-              id="show"
-              min="1"
-              value={data.length}
-              onChange={(e) => setShowCount(Number(e.target.value))}
-              className="w-16 p-1 text-center border rounded"
-            />
-          </div>
+         
 
           {/* Sort By Section */}
-          <div className="flex items-center gap-2">
-            <label htmlFor="sort-by" className="text-sm text-gray-600">
-              Sort by
-            </label>
-            <select
-              id="sort-by"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="p-1 text-sm border rounded"
-            >
-              <option value="default">Default</option>
-              <option value="price-low-high">Price: Low to High</option>
-              <option value="price-high-low">Price: High to Low</option>
-              <option value="popularity">Popularity</option>
-            </select>
-          </div>
+          
         </div>
       </div>
 

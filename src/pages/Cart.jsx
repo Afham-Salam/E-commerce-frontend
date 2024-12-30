@@ -29,6 +29,8 @@ export default function Cart() {
     );
   };
 
+console.log(items)
+
   if (status === "loading") {
     return <div className="text-center py-10">Loading...</div>;
   }
@@ -67,6 +69,8 @@ export default function Cart() {
                 </thead>
                 <tbody>
                   {items.map((item) => (
+                   
+                   
                     <tr key={item._id} className="hover:bg-gray-50   ">
                       <td className="flex items-center p-4 border-0">
                         <img
@@ -77,18 +81,20 @@ export default function Cart() {
                         <span>{item.productId.name}</span>
                       </td>
                       <td className="p-4 ">Rs. {item.productId.price}</td>
-                      <td className="  flex  gap-2">
+                      <td className="  flex  gap-2 relative bottom-4 ">
                         <button
-                          onClick={() => dispatch(incrementCartItem(item._id))}
+                          onClick={() => dispatch(incrementCartItem({ userId:userId, productId: item.productId._id }))}
+
                           className="bg-green-500 px-2 text-white font-semibold"
                         >
                           +
                         </button>
+                        
                         <div className="w-10 text-center border rounded-md">
                           {item.quantity}
                         </div>
                         <button
-                          onClick={() => dispatch(decrementCartItem(item._id))}
+                          onClick={() => dispatch(decrementCartItem({ userId:userId, productId: item.productId._id }))}
                           className="bg-red-500 px-3 text-white font-semibold"
                         >
                           -
@@ -99,7 +105,7 @@ export default function Cart() {
                       </td>
                       <td>
                         <RiDeleteBinLine
-                          onClick={() => dispatch(removeFromCart(item._id))}
+                          onClick={() => dispatch(removeFromCart({ userId:userId, productId: item.productId._id }))}
                           className="text-2xl text-red-600 cursor-pointer"
                         />
                       </td>

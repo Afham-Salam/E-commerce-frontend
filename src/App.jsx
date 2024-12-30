@@ -15,7 +15,6 @@ function App() {
   return (
     <>
      <Provider store={store}>
-     
     <Navbar />
     <Outlet/>
     <Footer/>

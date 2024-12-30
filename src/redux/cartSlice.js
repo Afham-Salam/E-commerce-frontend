@@ -36,6 +36,8 @@ export const incrementCartItem = createAsyncThunk(
   'cart/incrementCartItem',
   async ({ userId, productId }, { rejectWithValue }) => {
     try {
+      console.log(userId)
+      console.log(productId)
       await APIClientPrivate.put(`/api/cart/increment/${userId}`, { productId });
       return productId;
     } catch (error) {
@@ -63,9 +65,9 @@ export const removeFromCart = createAsyncThunk(
   async ({ userId, productId }, { rejectWithValue }) => {
     try {
       
-      await APIClientPrivate.delete(`/api/cart/remove/${userId}`, {
-        data: { productId },
-      });
+      await APIClientPrivate.delete(`/api/cart/remove/${userId}`, 
+        { productId },
+      );
       return productId;
     } catch (error) {
       return rejectWithValue(error.response.data);

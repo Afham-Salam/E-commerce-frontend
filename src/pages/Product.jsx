@@ -20,7 +20,7 @@ export default function Product() {
       try {
         const response = await APIClientPrivate.get(
           `/api/product/get/${productid}`
-        );
+        )
         setData(response.data);
         console.log("Product", response.data);
       } catch (err) {

@@ -64,10 +64,9 @@ export const removeFromCart = createAsyncThunk(
   'cart/removeFromCart',
   async ({ userId, productId }, { rejectWithValue }) => {
     try {
-      
-      await APIClientPrivate.delete(`/api/cart/remove/${userId}`, 
-        { productId },
-      );
+      await APIClientPrivate.delete(`/api/cart/remove/${userId}`, {
+        data: { productId },  // Pass productId through data
+      });
       return productId;
     } catch (error) {
       return rejectWithValue(error.response.data);

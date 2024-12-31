@@ -4,7 +4,7 @@ import { helps, navItem } from '../lib/data';
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-10  border-t border-gray-200">
+    <footer  className="bg-white py-10  border-t border-gray-200">
       <div className="container mx-auto px-5 md:px-10 lg:px-20">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 text-center md:text-left">
           {/* Column 1 */}

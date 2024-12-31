@@ -10,9 +10,10 @@ export default function ViewUsers() {
     const fetchUsers = async () => {
       try {
         const response = await APIClientPrivate.get('/api/user/all');
-        setData(response.data);
+        setData(response.data.users);
     
-        console.log(response.data); // Log the data right after fetching
+        console.log(data); // Log the data right after fetching
+        console.log(response.data.users); 
       } catch (error) {
         setError('Failed to load users');
       } finally {
@@ -24,7 +25,7 @@ export default function ViewUsers() {
   }, []); // Empty dependency array to fetch only once when component mounts
 
   if (loading) {
-    return <div className="text-center text-xl">Loading...</div>;
+    return <div className="text-center text-xl">Loading....</div>;
   }
 
   if (error) {
@@ -44,7 +45,7 @@ export default function ViewUsers() {
               className="flex flex-col bg-white rounded-lg shadow-lg overflow-hidden"
             >
               <div className="p-4">
-                {/* Add profile picture if available */}
+               
                 <h2 className="text-2xl font-semibold text-gray-800 mb-2">{it.name}</h2>
                 <p className="text-lg text-gray-600 mb-2">Email: {it.email}</p>
                 <p className="text-md text-gray-600 mb-2">Role: {it.role}</p>
@@ -55,6 +56,8 @@ export default function ViewUsers() {
             </div>
           ))
         )}
+
+       
       </div>
     </div>
   );

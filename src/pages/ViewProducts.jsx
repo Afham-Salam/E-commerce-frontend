@@ -32,7 +32,7 @@ export default function ViewProducts() {
 
   return (
     <div className="container mx-auto md:px-4 py-8">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Product Details</h1>
+      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Products</h1>
       <div className="grid  sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {products.map((product) => (
           <div key={product.id} className="flex flex-col bg-white rounded-lg shadow-lg overflow-hidden w-[150px] md:w-fit">

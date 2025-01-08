@@ -78,8 +78,8 @@ const navigate=useNavigate()
                                 <div className="w-[17rem] bg-[#F4F5F7]" key={index}>
                                     <img src={`/product-img-${(index % 4) + 1}.webp`} alt={`Product ${index + 1}`} />
                                     <div className="p-4 mt-2">
-                                        <h3 className="text-black text-[18px] font-semibold">Product Name</h3>
-                                        <p className="text-[#898989] text-[16px] font-medium">Stylish cafe chair</p>
+                                        <h3 className="text-black text-[18px] font-semibold">Stylish cafe chair</h3>
+                                        
                                         <div className="flex justify-between">
                                             <h6 className="text-black text-[16px] font-semibold">Rs 2.500.000</h6>
                                             <h6 className="text-[#898989] text-[16px] font-medium line-through">Rs 3.500.000</h6>

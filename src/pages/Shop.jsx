@@ -39,7 +39,7 @@ export default function Shop() {
       <div className="w-full">
         <img
           className="w-full h-[280px] object-cover"
-          src="/shop.png"
+          src="/shop.webp"
           alt="Shop Banner"
         />
         {/* Filter Section */}

@@ -8,7 +8,7 @@ import {
 } from "../redux/cartSlice";
 import { RiDeleteBinLine } from "react-icons/ri";
 import BenefitSection from "../components/BenefitSection";
-import cartImage from "/cart.png"; // Proper static import
+import cartImage from "/cart.webp"; // Proper static import
 
 export default function Cart() {
   const dispatch = useDispatch(); 

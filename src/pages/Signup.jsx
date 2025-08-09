@@ -180,10 +180,7 @@ export default function Signup() {
             )}
           </Formik>
 
-           {/* Right Section */}
-          <div className=" lg:flex items-center hidden">
-           <img src="/public/sofa.jpg"></img>
-          </div>
+          
         </div>
 
 

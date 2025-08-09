@@ -113,13 +113,13 @@ export default function ViewProducts() {
     setMessage('');
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Loader size="lg" text="Loading products..." />
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="flex justify-center py-20">
+  //       <Loader size="lg" text="Loading products..." />
+  //     </div>
+  //   );
+  // }
 
   if (error) {
     return <div className="text-center text-red-500">{error}</div>;
@@ -149,7 +149,7 @@ export default function ViewProducts() {
                 alt={product.name}
                 className="w-full md:h-64 h-52 object-cover rounded-lg shadow-md mb-4"
               />
-              <h2 className="md:text-2xl font-semibold text-gray-800 mb-2">{product.name}</h2>
+              <h2 className="md:text-2xl font-semibold text-gray-800 mb-2">{product?.name}</h2>
               <p className="md:text-lg text-gray-600 mb-2">Category: {product.category}</p>
               <p className="md:text-xl font-semibold text-gray-800 mb-2">Price: ${product.price}</p>
               <p className="md:text-md text-gray-700 mb-4">Stock Quantity: {product.stock}</p>

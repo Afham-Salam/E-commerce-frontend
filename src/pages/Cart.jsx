@@ -8,9 +8,10 @@ import {
 } from "../redux/cartSlice";
 import { RiDeleteBinLine } from "react-icons/ri";
 import BenefitSection from "../components/BenefitSection";
+import cartImage from "/cart.png"; // Proper static import
 
 export default function Cart() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch(); 
   const { items, status, error } = useSelector((state) => state.cart);
   const userId = localStorage.getItem("userId");
 
@@ -29,12 +30,6 @@ export default function Cart() {
     );
   };
 
-console.log(items)
-
-  if (status === "loading") {
-    return <div className="text-center py-10">Loading...</div>;
-  }
-
   if (error) {
     return <div className="text-center py-10 text-red-500">{error}</div>;
   }
@@ -50,11 +45,12 @@ console.log(items)
       <div className="w-full">
         <img
           className="w-full h-[280px] object-cover"
-          src="/cart.png"
+          src={cartImage}
           alt="Cart Banner"
+          loading="lazy" // Native lazy loading for images
         />
 
-        <div className="mt-6 flex flex-col md:flex-row gap-10 justify-center p-4 space-y-4 md:space-y-0 md:space-x-">
+        <div className="mt-6 flex flex-col md:flex-row gap-10 justify-center p-4 space-y-4 md:space-y-0 md:space-x-4">
           <div className="w-full md:w-2/3 bg-white shadow-md rounded-lg overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full text-left border-collapse min-w-[600px]">
@@ -69,44 +65,45 @@ console.log(items)
                 </thead>
                 <tbody>
                   {items.map((item) => (
-                   
-                   
-                    <tr key={item._id} className="hover:bg-gray-50   ">
-                      <td className="flex items-center p-4 border-0">
-                        <img
-                          src={item.productId.images}
-                          alt={item.productId.name}
-                          className="w-12 h-12 rounded-md mr-4"
-                        />
-                        <span>{item.productId.name}</span>
-                      </td>
-                      <td className="p-4 ">Rs. {item.productId.price}</td>
-                      <td className="  flex  gap-2 relative bottom-4 ">
-                        <button
-                          onClick={() => dispatch(incrementCartItem({ userId:userId, productId: item.productId._id }))}
-
-                          className="bg-green-500 px-2 text-white font-semibold"
-                        >
-                          +
-                        </button>
-                        
-                        <div className="w-10 text-center border rounded-md">
-                          {item.quantity}
+                    <tr key={item._id} className="hover:bg-gray-50">
+                      <td className="p-4 border-0">
+                        <div className="flex items-center">
+                          <img
+                            src={item.productId.images}
+                            alt={item.productId.name}
+                            className="w-12 h-12 rounded-md mr-4"
+                            loading="lazy" // Native lazy loading for product images
+                          />
+                          <span>{item.productId.name}</span>
                         </div>
-                        <button
-                          onClick={() => dispatch(decrementCartItem({ userId:userId, productId: item.productId._id }))}
-                          className="bg-red-500 px-3 text-white font-semibold"
-                        >
-                          -
-                        </button>
                       </td>
-                      <td className="p-4 ">
+                      <td className="p-4">Rs. {item.productId.price}</td>
+                      <td className="p-4">
+                        <div className="flex items-center gap-2">
+                          <button
+                            onClick={() => dispatch(decrementCartItem({ userId: userId, productId: item.productId._id }))}
+                            className="bg-red-500 px-3 py-1 text-white font-semibold rounded hover:bg-red-600"
+                          >
+                            -
+                          </button>
+                          <div className="w-10 text-center border rounded-md py-1">
+                            {item.quantity}
+                          </div>
+                          <button
+                            onClick={() => dispatch(incrementCartItem({ userId: userId, productId: item.productId._id }))}
+                            className="bg-green-500 px-2 py-1 text-white font-semibold rounded hover:bg-green-600"
+                          >
+                            +
+                          </button>
+                        </div>
+                      </td>
+                      <td className="p-4">
                         Rs. {(item.productId.price * item.quantity).toFixed(2)}
                       </td>
-                      <td>
+                      <td className="p-4">
                         <RiDeleteBinLine
-                          onClick={() => dispatch(removeFromCart({ userId:userId, productId: item.productId._id }))}
-                          className="text-2xl text-red-600 cursor-pointer"
+                          onClick={() => dispatch(removeFromCart({ userId: userId, productId: item.productId._id }))}
+                          className="text-2xl text-red-600 cursor-pointer hover:text-red-800"
                         />
                       </td>
                     </tr>
@@ -126,7 +123,7 @@ console.log(items)
               <span className="text-gray-700 font-semibold">Total</span>
               <span className="text-gold-600 font-bold">Rs. {subtotal.toFixed(2)}</span>
             </div>
-            <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800">
+            <button className="w-full bg-black text-white py-2 rounded-md hover:bg-gray-800 transition-colors">
               Check Out
             </button>
           </div>

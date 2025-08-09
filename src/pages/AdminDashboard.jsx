@@ -51,7 +51,20 @@ const AdminDashboard = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      <Sider collapsible collapsed={collapsed} onCollapse={toggleCollapsed} theme="dark">
+      <Sider 
+        collapsible 
+        collapsed={collapsed} 
+        onCollapse={toggleCollapsed} 
+        theme="dark"
+        style={{
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
+          left: 0,
+          top: 0,
+          bottom: 0,
+        }}
+      >
         <div className="logo text-white text-center py-4 text-2xl font-bold">
           Admin
         </div>
@@ -66,8 +79,24 @@ const AdminDashboard = () => {
           <Menu.Item key="viewUsers" icon={<UserOutlined />}>View Users</Menu.Item>
         </Menu>
       </Sider>
-      <Layout className="site-layout">
-        <Header className="bg-white flex justify-between items-center px-6 shadow-md">
+      <Layout 
+        className="site-layout"
+        style={{
+          marginLeft: collapsed ? 80 : 200,
+          transition: 'margin-left 0.2s',
+        }}
+      >
+        <Header 
+          className="bg-white flex justify-between items-center px-6 shadow-md"
+          style={{
+            position: 'fixed',
+            top: 0,
+            right: 0,
+            left: collapsed ? 80 : 200,
+            zIndex: 1,
+            transition: 'left 0.2s',
+          }}
+        >
           <div>
             {collapsed ? (
               <MenuUnfoldOutlined
@@ -82,7 +111,13 @@ const AdminDashboard = () => {
             )}
           </div>
         </Header>
-        <Content style={{ margin: '16px' }}>
+        <Content 
+          style={{ 
+            margin: '16px',
+            marginTop: '80px', // Account for fixed header height
+            overflow: 'auto',
+          }}
+        >
           <div
             className="bg-white p-6 rounded-lg shadow-md"
             style={{ minHeight: 360 }}

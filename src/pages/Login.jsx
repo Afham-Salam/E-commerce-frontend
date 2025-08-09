@@ -5,6 +5,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import APIClientPrivate from "../utils/axios";
+import Loader from "../components/Loader";
 
 export default function Login() {
    const navigate = useNavigate();
@@ -58,6 +59,7 @@ export default function Login() {
 
   return (
     <>
+      {loading && <Loader fullScreen={true} size="xl" text="Logging you in..." />}
       <div className=" flex h-screen flex-col bgimage bg pt-1">
         <div className="w-full text-white flex justify-between px-6 py-1">
           <img src="/logo.webp" className="h-8 w-auto" alt="" />
@@ -131,11 +133,11 @@ export default function Login() {
 
                 {/* Submit Button */}
                 <button
-                  className="w-full lg:py-3 py-2 border-2 border-[#B88E2F] bg-[#B88E2F] text-white text-sm hover:bg-white hover:text-[#B88E2F] transition duration-200 ease-in-out"
+                  className="w-full lg:py-3 py-2 border-2 border-[#B88E2F] bg-[#B88E2F] text-white text-sm hover:bg-white hover:text-[#B88E2F] transition duration-200 ease-in-out disabled:opacity-70"
                   type="submit"
                   disabled={loading}
                 >
-                  {loading ? 'Logging in...' : 'Log In'}
+                  Log In
                 </button>
 
                 <div className="flex items-center my-2">
@@ -152,15 +154,15 @@ export default function Login() {
                 </p>
 
                 {message && (
-                  <p
-                    className={`text-center mt-4 ${
-                      message.includes("failed")
-                        ? "text-red-500"
-                        : "text-green-500"
+                  <div
+                    className={`text-center mt-4 p-3 rounded-lg ${
+                      message.includes("failed") || message.includes("don't exist") || message.includes("incorrect")
+                        ? "bg-red-100 text-red-700 border border-red-300"
+                        : "bg-green-100 text-green-700 border border-green-300"
                     }`}
                   >
                     {message}
-                  </p>
+                  </div>
                 )}
               </Form>
             )}

@@ -3,16 +3,19 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import APIClientPrivate from "../utils/axios";
 import BenefitSection from "../components/BenefitSection";
+import Loader from "../components/Loader";
 
 export default function Shop() {
   const [view, setView] = useState("grid");
   const [showCount, setShowCount] = useState(16);
   const [sortBy, setSortBy] = useState("default");
   const [data, setData] = useState([]); // State to store the API data
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading(true);
         const response = await APIClientPrivate.get(
           "/api/product/get"
         );
@@ -22,6 +25,8 @@ export default function Shop() {
         
       } catch (err) {
         console.error("Error fetching data:", err);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -58,7 +63,12 @@ export default function Shop() {
         className="w-[85%] h-auto grid lg:grid-cols-4 md:grid-cols-3 gap-10 pt-10 " 
          
       >
-        {data.map((product) => (
+        {loading ? (
+          <div className="col-span-full flex justify-center py-20">
+            <Loader size="lg" text="Loading products..." />
+          </div>
+        ) : (
+          data.map((product) => (
           <div
           key={product._id} // Replace `_id` with the unique identifier in your API data
           className="group max-w-sm mx-auto bg-white rounded-lg shadow-md overflow-hidden border relative"
@@ -94,7 +104,8 @@ export default function Shop() {
             </div>
           </div>
         </div>        
-        ))}
+          ))
+        )}
       </div>
       </div>
       <BenefitSection/>

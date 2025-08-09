@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Drawer } from "antd";
 import { IoMail } from "react-icons/io5";
 import APIClientPrivate from "../utils/axios";
+import Loader from "./Loader";
 
 const Profile = ({ open, onClose }) => {
   const [loading, setLoading] = useState(false);
@@ -59,7 +60,9 @@ const Profile = ({ open, onClose }) => {
       closeIcon={<span style={{ color: "black" }}>×</span>}
     >
       {loading ? (
-        <p>Loading...</p>
+        <div className="flex justify-center items-center py-8">
+          <Loader size="md" text="Loading profile..." />
+        </div>
       ) : error ? (
         <p className="text-red-500">{error}</p>
       ) : (

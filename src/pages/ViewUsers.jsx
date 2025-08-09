@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import APIClientPrivate from '../utils/axios';
+import Loader from '../components/Loader';
 
 export default function ViewUsers() {
   const [data, setData] = useState([]);
@@ -25,7 +26,11 @@ export default function ViewUsers() {
   }, []); // Empty dependency array to fetch only once when component mounts
 
   if (loading) {
-    return <div className="text-center text-xl">Loading....</div>;
+    return (
+      <div className="flex justify-center py-20">
+        <Loader size="lg" text="Loading users..." />
+      </div>
+    );
   }
 
   if (error) {

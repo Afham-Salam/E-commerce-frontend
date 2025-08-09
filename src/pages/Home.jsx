@@ -90,7 +90,7 @@ const navigate=useNavigate()
                     </div>
                 </div>
                 <div className="flex justify-center mt-12">
-                    <button className="px-14 py-2 border-2 border-[#B88E2F] bg-[#B88E2F] text-white hover:bg-white hover:text-[#B88E2F]">
+                    <button onClick={()=>navigate('/shop')} className="px-14 py-2 border-2 border-[#B88E2F] bg-[#B88E2F] text-white hover:bg-white hover:text-[#B88E2F]">
                         Show More
                     </button>
                 </div>

@@ -5,11 +5,13 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
  import { Formik, Form, Field, ErrorMessage } from "formik";
  import * as Yup from "yup";
 import APIClientPrivate from "../utils/axios";
+import Loader from "../components/Loader";
 
 export default function Signup() {
    const navigate = useNavigate();
    const [message, setMessage] = useState("");
    const [showPassword, setShowPassword] = useState(false);
+   const [loading, setLoading] = useState(false);
 
   const validationSchema = Yup.object({
     name: Yup.string()
@@ -23,6 +25,7 @@ export default function Signup() {
   });
 
   const handleSubmit = async (values) => {
+    setLoading(true);
     const { name, email, password } = values;
     const formData = { name, email, password };
   
@@ -38,6 +41,8 @@ export default function Signup() {
       } else {
         setMessage("An error occurred. Please try again.");
       }
+    } finally {
+      setLoading(false);
     }
   };
   
@@ -45,6 +50,7 @@ export default function Signup() {
 
   return (
     <>
+      {loading && <Loader fullScreen={true} size="xl" text="Creating your account..." />}
       <div className=" flex h-screen flex-col bgimage bg pt-1">
         <div className="w-full    text-white flex justify-between px-6 py-1">
           <img src="/logo.webp" className="h-8 w-auto"  alt="" />
@@ -134,8 +140,9 @@ export default function Signup() {
 
                 {/* Submit Button */}
                 <button
-                  className="w-full lg:py-3 py-2  border-2 border-[#B88E2F] bg-[#B88E2F] text-white text-sm hover:bg-white hover:text-[#B88E2F] transition duration-200 ease-in-out"
+                  className="w-full lg:py-3 py-2  border-2 border-[#B88E2F] bg-[#B88E2F] text-white text-sm hover:bg-white hover:text-[#B88E2F] transition duration-200 ease-in-out disabled:opacity-70"
                   type="submit"
+                  disabled={loading}
                 >
                   Signup
                 </button>
@@ -159,15 +166,15 @@ export default function Signup() {
 
                 {/* Error/Success Message */}
                 {message && (
-                  <p
-                    className={`text-center mt-4 ${
-                      message.includes("failed")
-                        ? "text-red-500"
-                        : "text-green-500"
+                  <div
+                    className={`text-center mt-4 p-3 rounded-lg ${
+                      message.includes("failed") || message.includes("exist") || message.includes("error")
+                        ? "bg-red-100 text-red-700 border border-red-300"
+                        : "bg-green-100 text-green-700 border border-green-300"
                     }`}
                   >
                     {message}
-                  </p>
+                  </div>
                 )}
               </Form>
             )}
